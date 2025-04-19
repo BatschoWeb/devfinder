@@ -2,9 +2,10 @@ buttonForsearch.addEventListener("click", () => {
   console.dir(searchInput.value);
   fetch(`https://api.github.com/users/${searchInput.value}`)
     .then((respons) => {
-      if (respons.status === 200) {
-        return respons.json();
+      if (!respons.ok) {
+        throw new Error(`HTTP error! Status: ${respons.status}`);
       }
+      return respons.json();
     })
     .then((data) => {
       console.log(data);
@@ -23,28 +24,43 @@ buttonForsearch.addEventListener("click", () => {
     })
     .catch((error) => {
       h1.innerHTML = "No Result";
+      h1.style.color = "red";
     });
 });
 
-let dark = false;
-darkModusImg.addEventListener("click", () => {
-  if (dark) {
-    document.documentElement.style.setProperty("--backgroundMain", "#f6f8ff");
-  } else {
-    document.documentElement.style.setProperty("--backgroundMain", "#1e2a47");
-  }
-  dark = !dark;
-});
+let darkModus = false;
 
-fetch("http://localhost:4000/save/users", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    name: "alex",
-    surname: " alexa",
-  }),
-})
-  .then((respons) => respons.json())
-  .then((data) => {
-    console.log(data);
-  });
+darkModusImg.addEventListener("click", () => {
+  darkModus = !darkModus;
+
+  if (darkModus) {
+    headDivSpan.innerHTML = "LIGHT";
+    darkModusImg.src = "./githubfoto/sun.svg";
+    infoImg1.src = "./githubfoto/dlokation.png";
+    infoImg2.src = "./githubfoto/d.twit.png";
+    infoImg3.src = "./githubfoto/dlink.png";
+    infoImg4.src = "./githubfoto/dcompany.png";
+    document.documentElement.style.setProperty("--bg-color", "#141d2f");
+    document.documentElement.style.setProperty("--white-color", "#1E2A47");
+    document.documentElement.style.setProperty("--text-color", "white");
+    document.documentElement.style.setProperty("--black-color", "white");
+    document.documentElement.style.setProperty("--statistik-color", "#141d2f");
+    document.documentElement.style.setProperty("--gray-color", "white");
+    document.documentElement.style.setProperty("--input-bg-color", " #1e2a47");
+    document.documentElement.style.setProperty("--button-color", "white");
+  } else {
+    headDivSpan.innerHTML = "DARK";
+    darkModusImg.src = "./githubfoto/moon.svg";
+    document.documentElement.style.setProperty("--bg-color", "#f2f2f2");
+    document.documentElement.style.setProperty("--white-color", "white");
+    document.documentElement.style.setProperty("--text-color", "#4b6a9b");
+    document.documentElement.style.setProperty("--black-color", "black");
+    document.documentElement.style.setProperty("--statistik-color", "#f6f8ff");
+    document.documentElement.style.setProperty("--gray-color", "#697C9A");
+    document.documentElement.style.setProperty("--input-bg-color", "white");
+    infoImg1.src = "./githubfoto/lokation.png";
+    infoImg2.src = "./githubfoto/004-twitter.svg";
+    infoImg3.src = "./githubfoto/link.svg";
+    infoImg4.src = "./githubfoto/001-office-building.svg";
+  }
+});
