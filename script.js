@@ -21,7 +21,11 @@ buttonForsearch.addEventListener("click", () => {
       blog.innerHTML = `${data.html_url}`;
       company.innerHTML = `${data.company}`;
       lokation.innerHTML = `${data.location}`;
+      blog.addEventListener("click", () => {
+        window.open(`${data.html_url}`, "_blank");
+      });
     })
+
     .catch((error) => {
       h1.innerHTML = "No Result";
       h1.style.color = "red";

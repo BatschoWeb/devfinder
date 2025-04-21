@@ -222,3 +222,7 @@ input::placeholder {
 .searchBox {
   position: relative;
 }
+
+.blog {
+  cursor: pointer;
+}
